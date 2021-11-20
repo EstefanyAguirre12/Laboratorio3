@@ -17,7 +17,7 @@ function App() {
           { _id: response.data._id, name: name },
         ]);
       });
-      location.reload();
+      window.location.reload();
     }catch(e){
       console.log(e);
     }
@@ -34,7 +34,7 @@ function App() {
         { _id: response.data._id, name: name },
       ]);
     });
-    location.reload();
+    window.location.reload();
   };
 
   const deleteInfo = (id) => {
