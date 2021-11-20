@@ -16,11 +16,11 @@ function App() {
           ...listOfInfo,
           { _id: response.data._id, name: name },
         ]);
-      })
+      });
+      location.reload();
     }catch(e){
       console.log(e);
     }
-
   };
 
   const updateInfo = (id) => {
@@ -34,6 +34,7 @@ function App() {
         { _id: response.data._id, name: name },
       ]);
     });
+    location.reload();
   };
 
   const deleteInfo = (id) => {
