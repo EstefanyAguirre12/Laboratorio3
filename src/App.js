@@ -10,7 +10,7 @@ function App() {
     try{
       console.log("Llego");
       const data = await Axios.post("http://localhost:3000/api/infos", {
-        name: name,
+        name: name
       }).then(()=>{
         setListOfInfo(
           listOfInfo.filter((val) => {
@@ -22,6 +22,32 @@ function App() {
       console.log(e);
     }
 
+  };
+
+  const updateInfo = (id) => {
+    const name = prompt("Enter nuevo nombre: ");
+
+    Axios.put(`http://localhost:3000/api/infos/${id}`, {
+      name: name
+    }).then(() => {
+      setListOfInfo(
+        listOfInfo.map((val) => {
+          return val._id == id ? { _id: id, name: val.name} : val;
+        })
+      );
+    });
+  };
+
+  const deleteInfo = (id) => {
+    Axios.delete(`http://localhost:3000/api/infos/${id}`).then(
+      () => {
+        setListOfInfo(
+          listOfInfo.filter((val) => {
+            return val._id != id;
+          })
+        );
+      }
+    );
   };
 
   useEffect(() => {
@@ -52,8 +78,8 @@ function App() {
               <div className="info">
                 <h3>Name: {val.name}</h3>
               </div>
-              <button>Modificar</button>
-              <button id="removeBtn">X</button>
+              <button onClick={()=>{updateInfo(val._id)}}>Modificar</button>
+              <button id="removeBtn" onClick={()=>{deleteInfo(val._id)}}>X</button>
             </div>
             );
         })}
