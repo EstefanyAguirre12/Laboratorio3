@@ -5,14 +5,16 @@ import Axios from "axios";
 function App() {
   const [name, setName] = useState("");
 
-  const addInfo = () => {
-    Axios.post("http://localhost:3000/api/infos", {
-      name: name,
-    }).then(() => {
-      alert("Si");
-    }).catch(()=>{
-      alert("NO");
-    });
+  const addInfo = async() => {
+    try{
+      console.log("Llego");
+      const data = await Axios.post("http://localhost:3000/api/infos", {
+        name: name,
+      })
+    }catch(e){
+      console.log(e);
+    }
+
   };
 
   return (
