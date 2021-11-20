@@ -11,6 +11,12 @@ function App() {
       console.log("Llego");
       const data = await Axios.post("http://localhost:3000/api/infos", {
         name: name,
+      }).then(()=>{
+        setListOfInfo(
+          listOfInfo.filter((val) => {
+            return val._id != id;
+          })
+        );
       })
     }catch(e){
       console.log(e);
@@ -38,9 +44,20 @@ function App() {
         /> 
         <button  onClick={addInfo}>Agregar</button> 
       </div>
-      {listOfInfo.map((val)=>{
-        return <div>{val.name}</div>
-      })}
+
+      <div className="listOfInfo">
+        {listOfInfo.map((val)=>{
+          return (
+            <div className="infoContainer">
+              <div className="info">
+                <h3>Name: {val.name}</h3>
+              </div>
+              <button>Modificar</button>
+              <button id="removeBtn">X</button>
+            </div>
+            );
+        })}
+      </div>
     </div>
   );
 }
