@@ -11,12 +11,11 @@ function App() {
       console.log("Llego");
       const data = await Axios.post("http://localhost:3000/api/infos", {
         name: name
-      }).then(()=>{
-        setListOfInfo(
-          listOfInfo.filter((val) => {
-            return val._id != id;
-          })
-        );
+      }).then((response) => {
+        setListOfInfo([
+          ...listOfInfo,
+          { _id: response.data._id, name: name },
+        ]);
       })
     }catch(e){
       console.log(e);
