@@ -27,13 +27,12 @@ function App() {
     const name = prompt("Enter nuevo nombre: ");
 
     Axios.put(`http://localhost:3000/api/infos/${id}`, {
-      name: name
-    }).then(() => {
-      setListOfInfo(
-        listOfInfo.map((val) => {
-          return val._id == id ? { _id: id, name: val.name} : val;
-        })
-      );
+      name: name,
+    }).then((response) => {
+      setListOfInfo([
+        ...listOfInfo,
+        { _id: response.data._id, name: name },
+      ]);
     });
   };
 
