@@ -4,6 +4,7 @@ import Axios from "axios";
 
 function App() {
   const [name, setName] = useState("");
+  const [listOfInfo, setListOfInfo] = useState([]);
 
   const addInfo = async() => {
     try{
@@ -17,6 +18,16 @@ function App() {
 
   };
 
+  useEffect(() => {
+    Axios.get("http://localhost:3000/api/infos")
+      .then((response) => {
+        setListOfInfo(response.data);
+      })
+      .catch(() => {
+        console.log("ERR");
+      });
+  }, []);
+
   return (
     <div className="App">
       <div className="inputs">
@@ -27,6 +38,9 @@ function App() {
         /> 
         <button  onClick={addInfo}>Agregar</button> 
       </div>
+      {listOfInfo.map((val)=>{
+        return <div>{val.name}</div>
+      })}
     </div>
   );
 }
